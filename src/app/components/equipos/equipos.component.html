@@ -1,12 +1,9 @@
-<h3>{{Titulo}} <small>{{TituloAccionABMC[AccionABMC]}}</small></h3>
+<h3 *ngIf="AccionABMC == 'L'">{{Titulo}} <small *ngIf="AccionABMC == 'L'">{{TituloAccionABMC[AccionABMC]}}</small></h3>
 <br *ngIf="AccionABMC != 'L'">
 <div class="container" *ngIf="AccionABMC == 'L'" >
   <div>
       <div class="row justify-content-center">
-        <button type="button" class="btn btn-primary" (click)="Agregar()">
-              <span class="fas fa-plus"> </span> 
-              Agregar
-          </button>
+        <button type="button" class="btn btn-primary" (click)="Agregar()"><span class="fas fa-plus"> </span> Agregar Equipo</button>
       </div>
       <br>
       <table class="table table-bordered table-striped">
@@ -26,6 +23,7 @@
               <td class="text-center text-nowrap">
                 <button type="button" class="btn btn-sm btn-outline-primary" title="Modificar" (click)="Modificar(equipo)"><span class="fas fa-pencil-alt"></span>
                 </button>
+                &nbsp;
                 <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar" (click)="Eliminar(equipo)"><span class="fas fa-times"></span>
                 </button>
               </td>
@@ -34,10 +32,13 @@
       </table>
   </div>
 </div>
+
 <div class="row ">
     <div class="col-sm-2"></div>
     <div class="col">
       <!-- Registro en Alta,Modificacion y Consulta -->
+    <h3 *ngIf="AccionABMC != 'L'">{{Titulo}} <small *ngIf="AccionABMC != 'label'">{{TituloAccionABMC[AccionABMC]}}</small></h3>
+    <br>
     <form name="formGroup" [formGroup]='formGroup' *ngIf="AccionABMC != 'L'" class="bg-light border p-3 form-horizontal">
       <br>
       <fieldset>

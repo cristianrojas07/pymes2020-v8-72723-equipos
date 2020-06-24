@@ -105,7 +105,7 @@ export class EquiposComponent implements OnInit {
   Eliminar(Dto) {
     this.modalDialogService.Confirm(
       "Esta seguro de eliminar este registro?", undefined, undefined, undefined, () => this.equiposService.delete(Dto.IdEquipo).subscribe((res: any) => {
-        this.modalDialogService.Alert('Registro eliminado correctamente.', undefined, 's');
+        this.modalDialogService.Alert('Registro eliminado correctamente.', 'Exito', 's');
         this.GetEquipos();
       }), () => this.Volver(), 'd'
     );
