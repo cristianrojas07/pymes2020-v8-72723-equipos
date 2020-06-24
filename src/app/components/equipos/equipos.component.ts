@@ -80,7 +80,6 @@ export class EquiposComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    
     const itemCopy = { ...this.formGroup.value };
     if (itemCopy.IdEquipo == null){
       itemCopy.IdEquipo = 0;
@@ -89,7 +88,7 @@ export class EquiposComponent implements OnInit {
     if (itemCopy.IdEquipo == 0) {
       this.equiposService.post(itemCopy).subscribe((res: any) => {
         this.Volver();
-        this.modalDialogService.Alert('Registro agregado correctamente.');
+        this.modalDialogService.Alert('Registro agregado correctamente.', 'Exito', 's');
         this.GetEquipos();
       });
     } else {
@@ -106,9 +105,9 @@ export class EquiposComponent implements OnInit {
   Eliminar(Dto) {
     this.modalDialogService.Confirm(
       "Esta seguro de eliminar este registro?", undefined, undefined, undefined, () => this.equiposService.delete(Dto.IdEquipo).subscribe((res: any) => {
-        this.modalDialogService.Alert('Registro eliminado correctamente.');
+        this.modalDialogService.Alert('Registro eliminado correctamente.', undefined, 's');
         this.GetEquipos();
-      }), null
+      }), () => this.Volver(), 'd'
     );
   }
 

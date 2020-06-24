@@ -1,0 +1,83 @@
+<h3>{{Titulo}} <small>{{TituloAccionABMC[AccionABMC]}}</small></h3>
+<br *ngIf="AccionABMC != 'L'">
+<div class="container" *ngIf="AccionABMC == 'L'" >
+  <div>
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="Agregar()">
+              <span class="fas fa-plus"> </span> 
+              Agregar
+          </button>
+      </div>
+      <br>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+              <th class="text-center">ID Equipo</th>
+              <th class="text-center">Nombre de Equipo</th>
+              <th class="text-center">Ranking</th>
+              <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipo of Equipos">
+              <td class="text-center">{{equipo.IdEquipo}}</td>
+              <td class="text-center">{{equipo.EquipoNombre | uppercase}}</td>
+              <td class="text-center">{{equipo.EquipoRanking}}</td>
+              <td class="text-center text-nowrap">
+                <button type="button" class="btn btn-sm btn-outline-primary" title="Modificar" (click)="Modificar(equipo)"><span class="fas fa-pencil-alt"></span>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar" (click)="Eliminar(equipo)"><span class="fas fa-times"></span>
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<div class="row ">
+    <div class="col-sm-2"></div>
+    <div class="col">
+      <!-- Registro en Alta,Modificacion y Consulta -->
+    <form name="formGroup" [formGroup]='formGroup' *ngIf="AccionABMC != 'L'" class="bg-light border p-3 form-horizontal">
+      <br>
+      <fieldset>
+        <!--campo razon social-->
+        <div class="row form-group justify-content-center">
+          <label class="col-form-label col-sm-3" for="EquipoNombre">Nombre de Equipo <span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" name="EquipoNombre" autocomplete="off" class="form-control" formControlName="EquipoNombre" [ngClass]="{'is-invalid':(formGroup.controls.EquipoNombre.touched || formGroup.controls.EquipoNombre.dirty || submitted) && formGroup.controls.EquipoNombre.errors, 'is-valid': !formGroup.controls.EquipoNombre.errors}" />
+            <span class="text-danger" *ngIf="(formGroup.controls.EquipoNombre.touched || formGroup.controls.EquipoNombre.dirty || submitted) && formGroup.controls.EquipoNombre.errors?.required"> Dato requerido. </span>
+          </div>
+        </div>
+
+        <!--campo cantidad de empleados-->
+        <div class="row form-group justify-content-center">
+          <label class="col-form-label col-sm-3" for="EquipoRanking">Ranking <span class="text-danger">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" name="EquipoRanking" autocomplete="off" class="form-control" formControlName="EquipoRanking" [ngClass]="{'is-invalid':(formGroup.controls.EquipoRanking.touched || formGroup.controls.EquipoRanking.dirty || submitted) && formGroup.controls.EquipoRanking.errors, 'is-valid': !formGroup.controls.EquipoRanking.errors}" />
+            <span class="text-danger" *ngIf="(formGroup.controls.EquipoRanking.touched || formGroup.controls.EquipoRanking.dirty || submitted) && formGroup.controls.EquipoRanking.errors?.required"> Dato requerido. </span>
+            <span class="text-danger" *ngIf="(formGroup.controls.EquipoRanking.touched || formGroup.controls.EquipoRanking.dirty || submitted) && formGroup.controls.EquipoRanking.errors?.pattern"> Dato numérico, 1 a 7 dígitos.</span>
+          </div>
+        </div>
+      </fieldset>
+      <br>
+      <!-- Botones Grabar, Cancelar/Volver' -->
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="Grabar()">
+                <span class="fas fa-check"></span> {{AccionABMC=='M' ? 'Modificar' : 'Grabar'}}
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-warning" (click)="Volver()">
+                <span class="fas fa-undo"></span> Cancelar
+        </button>
+      </div>
+      <br>
+      <!--texto: Revisar los datos ingresados...-->
+      <div id="divMsjformGroupistro" *ngIf="formGroup.invalid && submitted" class="row alert alert-danger">
+        <span class="fas fa-exclamation-sign"></span>{{Mensajes['RD']}}
+      </div>
+
+    </form>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
